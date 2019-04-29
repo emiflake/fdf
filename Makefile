@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/18 20:11:18 by nmartins       #+#    #+#                 #
-#    Updated: 2019/04/29 19:37:49 by nmartins            ########   odam.nl    #
+#    Updated: 2019/04/29 20:15:53 by nmartins            ########   odam.nl    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ LIBFT=./libft
 MINILIB=./minilibx_macos
 EXTRA=
 CFLAGS=-Werror -Wall -Wextra $(EXTRA)
+FRAMEWORKS=-framework OpenGL -framework AppKit
 LFLAGS=-L$(LIBFT) -lft -L$(MINILIB) -lmlx
 OBJECTS=$(patsubst %, $(OBJ)/%.o, $(MAIN) $(OBJECT_NAMES))
 SOURCES=$(patsubst %, $(SRC)/%.c, $(MAIN) $(OBJECT_NAMES))
@@ -73,7 +74,7 @@ minilib_clean:
 
 $(NAME): $(LIBFT)/libft.a $(MINILIB)/libmlx.a $(OBJECTS)
 	@printf " λ Linking $(UNDERLINE)$(BLUE)$@$(RESET)\n"
-	@$(CC) -o $@ $(OBJECTS) $(CFLAGS) $(LFLAGS)
+	@$(CC) -o $@ $(FRAMEWORKS) $(OBJECTS) $(CFLAGS) $(LFLAGS)
 
 $(OBJ)/%.o: $(SRC)/%.c
 	@mkdir -p $(OBJ)
