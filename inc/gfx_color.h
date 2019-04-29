@@ -20,9 +20,9 @@ typedef struct	s_hsl
 /*
 ** Convert RGB color to int32 color
 */
-int	mk_color(int r, int g, int b, int a);
+int	gfx_color(int r, int g, int b, int a);
 
-t_rgb hsl2rgb(t_hsl); // TODO
-t_hsl rgb2hsl(t_rgb); // TODO
+t_rgb gfx_hsl2rgb(t_hsl); // TODO
+t_hsl gfx_rgb2hsl(t_rgb); // TODO
 
 #endif

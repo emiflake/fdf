@@ -1,6 +1,6 @@
 #include <libgfx.h>
 
-int	mk_color(int r, int g, int b, int a)
+int	gfx_color(int r, int g, int b, int a)
 {
 	int color;
 
