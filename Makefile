@@ -18,7 +18,8 @@
 NAME=fdf
 
 MAIN=			fdf
-OBJECT_NAMES=	
+OBJECT_NAMES=	\
+				color \
 
 # do not configure
 CC=gcc

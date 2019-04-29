@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <mlx.h>
+#include <libgfx.h>
 
 typedef struct    s_mlx_data
 {
@@ -29,18 +30,6 @@ int key_press(int keycode, void *param)
 		exit(0);
 	(void)param;
 	return (0);
-}
-
-int mk_color(int r, int g, int b, int a)
-{
-	int color;
-
-	color = 0;
-	color |= ((255 - a) << 24);
-	color |= (r << 16);
-	color |= (g << 8);
-	color |= (b << 0);
-	return (color);
 }
 
 int main(void)
