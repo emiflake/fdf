@@ -19,7 +19,11 @@ NAME=fdf
 
 MAIN=			fdf
 OBJECT_NAMES=	\
-				color \
+				gfx_color \
+				gfx_primitive_types \
+				gfx_primitive_shapes \
+				gfx_events \
+				gfx_state \
 
 # do not configure
 CC=gcc

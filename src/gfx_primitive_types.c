@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_color.h                                        :+:    :+:            */
+/*   gfx_primitive_types.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 00:56:50 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 00:56:50 by nmartins      ########   odam.nl         */
+/*   Created: 2019/04/30 00:55:09 by nmartins       #+#    #+#                */
+/*   Updated: 2019/04/30 01:05:02 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include <libgfx.h>
 
-#ifndef COLOR_H
-# define COLOR_H
-
-typedef struct	s_rgb
+t_point mk_point(int x, int y)
 {
-	int r;
-	int g;
-	int b;
-}				t_rgb;
+    t_point p;
 
-typedef struct	s_hsl
+    p.x = x;
+    p.y = y;
+    return (p);
+}
+
+t_dimensions mk_dimensions(int width, int height)
 {
-	int h;
-	int s;
-	int l;
-}				t_hsl;
+    t_dimensions p;
 
-/*
-** Convert RGB color to int32 color
-*/
-int	gfx_color(int r, int g, int b, int a);
-
-t_rgb gfx_hsl2rgb(t_hsl); // TODO
-t_hsl gfx_rgb2hsl(t_rgb); // TODO
-
-#endif
+    p.width = width;
+    p.height = height;
+    return (p);
+}

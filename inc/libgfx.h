@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   libgfx.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/04/30 00:57:14 by nmartins       #+#    #+#                */
+/*   Updated: 2019/04/30 00:57:42 by nmartins      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBGFX_H
 # define LIBGFX_H
 
@@ -18,8 +30,11 @@
 /*
 ** TODO: move entire library into a separate repo
 */
-
 # include "gfx_color.h"
 # include "gfx_keys.h"
+# include "gfx_primitive_shapes.h"
+# include "gfx_primitive_types.h"
+# include "gfx_state.h"
+# include "gfx_events.h"
 
 #endif
