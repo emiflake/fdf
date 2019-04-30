@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/29 19:32:58 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 18:33:33 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/04/30 20:54:16 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,19 @@ int	expose(t_gfx_state *st)
 	return (0);
 }
 
-/*
-** Render?
-*/
-
 int	render(t_gfx_state *st)
 {
 	t_state *user_state;
+	t_gfx_image *img;
 
 	user_state = st->user_state;
 	mlx_clear_window(st->mlx_ptr, st->win_ptr);
+	gfx_blit_pixel(st, RENDER_WINDOW, mk_point(4, 4), gfx_color(255, 0, 0, 255));
+	img = NULL;
+	img = gfx_create_image(st, mk_dimensions(100, 100));
+	gfx_fill_trgt(st, img, gfx_color(255, 0, 0, 255));
+	gfx_blit_image(st, img, mk_point(0, 0));
+	gfx_free_image(st, &img);
 	return (0);
 }
 
@@ -85,6 +88,5 @@ int	main(void)
 	st.user_state = &ust;
 	gfx_register_hooks(&st, hooks);
 	gfx_loop(&st);
-	ft_putendl("Hello");
 	return (EXIT_SUCCESS);
 }

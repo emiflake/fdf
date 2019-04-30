@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:57:10 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 17:54:21 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/04/30 19:49:56 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GFX_STATE_H
 
 # include "gfx_primitive_types.h"
+# include "gfx_keys.h"
 
 typedef struct	s_gfx_state
 {

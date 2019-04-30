@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:57:01 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 13:47:22 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/04/30 20:24:14 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ void	gfx_blit_pixel(
 	int colour);
 
 /*
-** blit img to the screen, at origin (x, y)
+** fill an image with a colour
 */
-
-void	gfx_blit_image(
+void	gfx_fill_trgt(
 	t_gfx_state *st,
-	t_render_target img,
-	t_point orig);
+	t_render_target trgt,
+	int colour);
 
 #endif
