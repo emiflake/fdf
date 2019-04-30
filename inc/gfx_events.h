@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:56:54 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 01:24:18 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/04/30 13:53:48 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,34 @@
 
 typedef struct  s_hooks
 {
+	int		(*render)(t_gfx_state *state);
+
     /*
     ** refer to gfx_keys.h
     */
-    int     (*keypress)(int key_code, t_gfx_state *state);
-    int     (*keyrelease)(int key_code, t_gfx_state *state);
-    int     (*mousepress)(int button_code, t_gfx_state *state);
-    int     (*mouserelease)(int button_code, t_gfx_state *state);
-    int     (*mousemove)(int x, int y, t_gfx_state *state);
-    int     (*expose)(t_gfx_state *state);
-    int     (*close)(t_gfx_state *state);
+
+	int     (*keypress)(int key_code, t_gfx_state *state);
+	int     (*keyrelease)(int key_code, t_gfx_state *state);
+
+	/*
+	** refer to gfx_mouse.h
+	*/
+
+	int     (*mousepress)(int button_code, t_gfx_state *state);
+	int     (*mouserelease)(int button_code, t_gfx_state *state);
+	int     (*mousemove)(int x, int y, t_gfx_state *state);
+
+	/*
+	** upon window opening
+	*/
+
+	int     (*expose)(t_gfx_state *state);
+
+	/*
+	** upon close event
+	*/
+
+	int     (*close)(t_gfx_state *state);
 }               t_hooks;
 
 

@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_color.h                                        :+:    :+:            */
+/*   gfx_image.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 00:56:50 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 13:05:57 by nmartins      ########   odam.nl         */
+/*   Created: 2019/04/30 13:22:15 by nmartins       #+#    #+#                */
+/*   Updated: 2019/04/30 13:43:37 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#ifndef GFX_IMAGE_H
+# define GFX_IMAGE_H
 
-#ifndef COLOR_H
-# define COLOR_H
+# include <mlx.h>
+# include <stdlib.h>
+# include "gfx_state.h"
+# include "gfx_primitive_types.h"
 
-typedef struct	s_rgb
+typedef struct	s_gfx_image
 {
-	int r;
-	int g;
-	int b;
-}				t_rgb;
+	void			*img_ptr;
+	t_dimensions	dim;
+}				t_gfx_image;
 
-typedef struct	s_hsl
-{
-	int h;
-	int s;
-	int l;
-}				t_hsl;
+typedef t_gfx_image *t_render_target;
 
 /*
-** Convert RGB color to int32 color
+** Macro for rendering to the window, instead of to an image
 */
-int gfx_color(int r, int g, int b, int a);
+# define RENDER_WINDOW (t_render_target)NULL
 
-t_rgb gfx_hsl2rgb(t_hsl); // TODO
-t_hsl gfx_rgb2hsl(t_rgb); // TODO
+t_gfx_image *create_image(t_gfx_state *st, t_dimensions dim);
 
 #endif

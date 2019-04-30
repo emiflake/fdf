@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_color.h                                        :+:    :+:            */
+/*   gfx_math.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 00:56:50 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 13:05:57 by nmartins      ########   odam.nl         */
+/*   Created: 2019/04/30 14:16:17 by nmartins       #+#    #+#                */
+/*   Updated: 2019/04/30 16:08:26 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#ifndef GFX_MATH_H
+# define GFX_MATH_H
 
-#ifndef COLOR_H
-# define COLOR_H
-
-typedef struct	s_rgb
-{
-	int r;
-	int g;
-	int b;
-}				t_rgb;
-
-typedef struct	s_hsl
-{
-	int h;
-	int s;
-	int l;
-}				t_hsl;
-
-/*
-** Convert RGB color to int32 color
-*/
-int gfx_color(int r, int g, int b, int a);
-
-t_rgb gfx_hsl2rgb(t_hsl); // TODO
-t_hsl gfx_rgb2hsl(t_rgb); // TODO
+# define RANGE_LERP(n,lower,upper,min,max) (((b)-(a))*((x)-(min))/((max)-(min)))+(a)
 
 #endif

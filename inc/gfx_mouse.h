@@ -1,40 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_color.h                                        :+:    :+:            */
+/*   gfx_mouse.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 00:56:50 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 13:05:57 by nmartins      ########   odam.nl         */
+/*   Created: 2019/04/30 13:15:03 by nmartins       #+#    #+#                */
+/*   Updated: 2019/04/30 13:17:06 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#ifndef GFX_MOUSE_H
+# define GFX_MOUSE_H
 
-#ifndef COLOR_H
-# define COLOR_H
-
-typedef struct	s_rgb
-{
-	int r;
-	int g;
-	int b;
-}				t_rgb;
-
-typedef struct	s_hsl
-{
-	int h;
-	int s;
-	int l;
-}				t_hsl;
-
-/*
-** Convert RGB color to int32 color
-*/
-int gfx_color(int r, int g, int b, int a);
-
-t_rgb gfx_hsl2rgb(t_hsl); // TODO
-t_hsl gfx_rgb2hsl(t_rgb); // TODO
+# define MC_LEFT 1
+# define MC_RIGHT 2
+# define MC_MIDDLE 3
+# define MC_SCROLLUP 4
+# define MC_SCROLLDOWN 5
+# define MC_SCROLLLEFT 6
+# define MC_SCROLLRIGHT 7
 
 #endif

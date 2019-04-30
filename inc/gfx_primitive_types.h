@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:57:04 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 01:04:26 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/04/30 16:59:31 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	s_point
 }				t_point;
 
 t_point			mk_point(int, int);
+t_point			point_add(t_point, t_point);
 
 typedef struct	s_vec2
 {
@@ -42,5 +43,11 @@ typedef struct	s_dimensions
 }				t_dimensions;
 
 t_dimensions	mk_dimensions(int, int);
+
+/*
+** Demotes a vec2 to a point, removing
+** decimal information.
+*/
+t_point			demote_vec2(t_vec2 vec);
 
 #endif

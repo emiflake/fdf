@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_color.h                                        :+:    :+:            */
+/*   gfx_image.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 00:56:50 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 13:05:57 by nmartins      ########   odam.nl         */
+/*   Created: 2019/04/30 13:43:21 by nmartins       #+#    #+#                */
+/*   Updated: 2019/04/30 13:43:32 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "gfx_image.h"
 
-#ifndef COLOR_H
-# define COLOR_H
-
-typedef struct	s_rgb
+t_gfx_image *create_image(t_gfx_state *st, t_dimensions dim)
 {
-	int r;
-	int g;
-	int b;
-}				t_rgb;
+	t_gfx_image *img;
 
-typedef struct	s_hsl
-{
-	int h;
-	int s;
-	int l;
-}				t_hsl;
-
-/*
-** Convert RGB color to int32 color
-*/
-int gfx_color(int r, int g, int b, int a);
-
-t_rgb gfx_hsl2rgb(t_hsl); // TODO
-t_hsl gfx_rgb2hsl(t_rgb); // TODO
-
-#endif
+	img = (t_gfx_image *)malloc(sizeof(t_gfx_image));
+	img->dim = dim;
+	img->img_ptr = mlx_new_image(st->mlx_ptr, dim.width, dim.height);
+	return (img);
+}

@@ -1,4 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   gfx_color.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/04/30 13:06:10 by nmartins       #+#    #+#                */
+/*   Updated: 2019/04/30 13:10:07 by nmartins      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libgfx.h>
+
+/*
+** Potentially useless alpha
+*/
 
 int	gfx_color(int r, int g, int b, int a)
 {
