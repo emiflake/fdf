@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:56:56 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 00:56:56 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/04/30 17:51:37 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@
 # define KC_LEFT 123
 # define KC_RIGHT 124
 
-/*
-** TODO: numpad, fn keys
-*/
+typedef char	t_key_state[512];
+
+void			gfx_key_state_down(t_key_state ks, int key_code);
+void			gfx_key_state_up(t_key_state ks, int key_code);
 
 #endif

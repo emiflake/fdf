@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:57:04 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 16:59:31 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/04/30 18:08:46 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_vec2
 }				t_vec2;
 
 t_vec2			mk_vec2(double, double);
+double			vec2_distance(t_vec2, t_vec2);
 
 /*
 ** Same as point, but for dimensions
