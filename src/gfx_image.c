@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 13:43:21 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 20:31:12 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/04/30 23:28:21 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_gfx_image	*gfx_create_image(t_gfx_state *st, t_dimensions dim)
 	if (img == NULL)
 		return (NULL);
 	img->dim = dim;
-	img->img_ptr = NULL;
 	img->img_ptr = mlx_new_image(st->mlx_ptr, dim.width, dim.height);
 	if (img->img_ptr == NULL)
 	{

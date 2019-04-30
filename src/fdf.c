@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/29 19:32:58 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 20:54:16 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/01 00:54:01 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	keyrelease(int key_code, t_gfx_state *st)
 int	close(t_gfx_state *st)
 {
 	(void)st;
+	gfx_free_state(st);
 	exit(0);
 	return (0);
 }
@@ -57,16 +58,18 @@ int	expose(t_gfx_state *st)
 int	render(t_gfx_state *st)
 {
 	t_state *user_state;
-	t_gfx_image *img;
-
+	
 	user_state = st->user_state;
 	mlx_clear_window(st->mlx_ptr, st->win_ptr);
-	gfx_blit_pixel(st, RENDER_WINDOW, mk_point(4, 4), gfx_color(255, 0, 0, 255));
-	img = NULL;
-	img = gfx_create_image(st, mk_dimensions(100, 100));
-	gfx_fill_trgt(st, img, gfx_color(255, 0, 0, 255));
-	gfx_blit_image(st, img, mk_point(0, 0));
-	gfx_free_image(st, &img);
+	gfx_fill_trgt(st, st->buffer, gfx_color(255, 255, 255, 255));
+	for(size_t i = 0; i < 100; i++)
+	{
+		gfx_blit_pixel(st, st->buffer,
+			mk_point(i + 100, floor(sin((double)i / 10) * 100)),
+			0x00FFB7C1);
+	}
+	gfx_blit_image(st, st->buffer, GFX_P_ORIGIN);
+	
 	return (0);
 }
 
@@ -78,7 +81,7 @@ int	main(void)
 
 	ft_memset(&hooks, 0, sizeof(t_hooks));
 	st.user_state = &st;
-	if (gfx_mk_state(&st, mk_dimensions(640, 480), "Basic Window") == -1)
+	if (gfx_mk_state(&st, mk_dimensions(640, 480), "FdF - A Wireframe Viewer") == -1)
 		return (EXIT_FAILURE);
 	hooks.keypress = keypress;
 	hooks.keyrelease = keyrelease;

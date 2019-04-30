@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:57:10 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 19:49:56 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/01 00:48:22 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,38 @@
 # include "gfx_primitive_types.h"
 # include "gfx_keys.h"
 
+struct			s_gfx_image;
+
 typedef struct	s_gfx_state
 {
 	/*
 	** A pointer to the Minilib reference
 	*/
-	void		*mlx_ptr;
+	void				*mlx_ptr;
 
 	/*
 	** A pointer to the window being handled
 	** Potential TODO: support multiple windows.
 	*/
-	void		*win_ptr;
+	void				*win_ptr;
 
 	/*
 	** User provided state, to be kept as a global
 	** pointer.
 	*/
-	void		*user_state;
+	void				*user_state;
 
 	/*
 	** A stoorage of key state
 	*/
-	t_key_state	key_state;
+	t_key_state			key_state;
+
+	/*
+	** Dimensions of the window
+	*/
+	t_dimensions		dimensions;
+
+	struct s_gfx_image	*buffer;
 }				t_gfx_state;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 13:22:15 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 20:24:01 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/01 00:24:39 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ typedef struct	s_gfx_image
 {
 	void			*img_ptr;
 	t_dimensions	dim;
+	/*
+	** The data for the actual
+	** image contents.
+	*/
 	char			*data_addr;
 	int				bits_per_pixel;
 	int				size_line;
