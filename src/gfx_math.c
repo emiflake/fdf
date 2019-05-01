@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_math.h                                         :+:    :+:            */
+/*   gfx_math.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 14:16:17 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 20:02:35 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/01 19:56:50 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/01 20:02:29 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GFX_MATH_H
-# define GFX_MATH_H
+#include "gfx_math.h"
+#include <math.h>
 
-# define RANGE_LERP(n,lower,upper,min,max) (((b)-(a))*((x)-(min))/((max)-(min)))+(a)
-
-int	gfx_math_clamp(int value, int min, int max);
-
-#endif
+int	gfx_math_clamp(int value, int min, int max)
+{
+	if (value > max)
+		return (max);
+	if (value < min)
+		return (min);
+	return (value);
+}

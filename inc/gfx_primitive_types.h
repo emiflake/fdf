@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:57:04 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 18:08:46 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/01 16:23:20 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,14 @@ t_dimensions	mk_dimensions(int, int);
 ** decimal information.
 */
 t_point			demote_vec2(t_vec2 vec);
+
+typedef struct	s_line
+{
+	t_point a;
+	t_point b;
+}				t_line;
+
+t_line			mk_line(t_point a, t_point b);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:56:54 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 13:53:48 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/01 19:52:16 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct  s_hooks
 	** refer to gfx_mouse.h
 	*/
 
-	int     (*mousepress)(int button_code, t_gfx_state *state);
-	int     (*mouserelease)(int button_code, t_gfx_state *state);
+	int     (*mousepress)(int button_code, int x, int y, t_gfx_state *state);
+	int     (*mouserelease)(int button_code, int x, int y, t_gfx_state *state);
 	int     (*mousemove)(int x, int y, t_gfx_state *state);
 
 	/*

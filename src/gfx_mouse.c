@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_math.h                                         :+:    :+:            */
+/*   gfx_mouse.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 14:16:17 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 20:02:35 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/01 19:15:55 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/01 19:53:17 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GFX_MATH_H
-# define GFX_MATH_H
 
-# define RANGE_LERP(n,lower,upper,min,max) (((b)-(a))*((x)-(min))/((max)-(min)))+(a)
+#include "gfx_mouse.h"
+#include "gfx_primitive_types.h"
 
-int	gfx_math_clamp(int value, int min, int max);
+void			gfx_mouse_state_down(t_gfx_mouse *mouse, int button_code)
+{
+	mouse->button_state[button_code] = 1;
+}
 
-#endif
+void			gfx_mouse_state_up(t_gfx_mouse *mouse, int button_code)
+{
+	mouse->button_state[button_code] = 0;
+}
+
+void			gfx_mouse_update_position(t_gfx_mouse *mouse, int x, int y)
+{
+	mouse->mouse_pos.x = x;
+	mouse->mouse_pos.y = y;
+}

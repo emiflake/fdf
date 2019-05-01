@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_math.h                                         :+:    :+:            */
+/*   gfx_window.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 14:16:17 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 20:02:35 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/01 18:30:33 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/01 18:31:18 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GFX_MATH_H
-# define GFX_MATH_H
+#include <mlx.h>
+#include "gfx_window.h"
 
-# define RANGE_LERP(n,lower,upper,min,max) (((b)-(a))*((x)-(min))/((max)-(min)))+(a)
-
-int	gfx_math_clamp(int value, int min, int max);
-
-#endif
+void		gfx_clear_window(t_gfx_state *st)
+{
+	mlx_clear_window(st->mlx_ptr, st->win_ptr);
+}

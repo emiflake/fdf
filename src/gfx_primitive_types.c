@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:55:09 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 18:10:17 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/01 16:24:09 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,13 @@ t_point			demote_vec2(t_vec2 vec)
 double			vec2_distance(t_vec2 a, t_vec2 b)
 {
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
+}
+
+t_line			mk_line(t_point a, t_point b)
+{
+	t_line l;
+
+	l.a = a;
+	l.b = b;
+	return (l);
 }

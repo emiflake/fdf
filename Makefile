@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/18 20:11:18 by nmartins       #+#    #+#                 #
-#    Updated: 2019/04/30 17:56:02 by nmartins      ########   odam.nl          #
+#    Updated: 2019/05/01 19:59:41 by nmartins      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ OBJECT_NAMES=	\
 				gfx_state \
 				gfx_image \
 				gfx_keys \
+				gfx_fps_counter \
+				gfx_lines \
+				gfx_mouse \
+				gfx_math \
 
 # do not configure
 CC=gcc

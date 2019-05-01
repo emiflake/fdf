@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:58:33 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 00:52:41 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/01 19:21:50 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	gfx_blit_pixel(
 	int color)
 {
 	int loc;
+
 	if (trgt == RENDER_WINDOW)
 		mlx_pixel_put(st->mlx_ptr, st->win_ptr, p.x, p.y, color);
 	else
@@ -42,7 +43,7 @@ void	gfx_fill_trgt(
 	(void)st;
 	if (trgt == RENDER_WINDOW)
 	{
-		ft_putendl_fd("NOT YET IMPLEMENTED: GFX_FILL_TRGT", 2);
+		ft_putendl_fd("NOT YET IMPLEMENTED: GFX_FILL_TRGT FOR WINDOW", 2);
 		exit(1);
 	}
 	pixel = 0;
