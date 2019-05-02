@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_math.h                                         :+:    :+:            */
+/*   gfx_vec.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 14:16:17 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 17:54:56 by nmartins      ########   odam.nl         */
+/*   Created: 2019/04/30 00:55:09 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/02 18:34:19 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GFX_MATH_H
-# define GFX_MATH_H
+#include <libgfx.h>
+#include <math.h>
 
-# define RANGE_LERP(n,lower,upper,min,max) (((b)-(a))*((x)-(min))/((max)-(min)))+(a)
-# define SIGN(n) (n > 0 ? 1 : -1)
+t_vec2			mk_vec2(double x, double y)
+{
+	t_vec2 p;
 
-int	gfx_math_clamp(int value, int min, int max);
+	p.x = x;
+	p.y = y;
+	return (p);
+}
 
-#endif
+t_point			demote_vec2(t_vec2 vec)
+{
+	return (mk_point(floor(vec.x), floor(vec.y)));
+}
+
+double			vec2_distance(t_vec2 a, t_vec2 b)
+{
+	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
+}

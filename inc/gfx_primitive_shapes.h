@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:57:01 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 00:30:12 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 19:01:58 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 void	gfx_blit_pixel(
 	t_gfx_state *st,
-	t_render_target trgt,
+	t_gfx_image *img,
 	t_point p,
 	int color);
 
@@ -32,7 +32,7 @@ void	gfx_blit_pixel(
 */
 void	gfx_fill_trgt(
 	t_gfx_state *st,
-	t_render_target trgt,
+	t_gfx_image *img,
 	int color);
 
 #endif

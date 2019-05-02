@@ -6,15 +6,12 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/01 16:18:04 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 19:10:56 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 18:46:15 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_lines.h"
-
 #include <math.h>
-
-#define SIGN(n) (n > 0 ? 1 : -1)
 
 static void	gfx_line_bresenham_octant_low(
 	t_gfx_state *st,
@@ -29,12 +26,8 @@ static void	gfx_line_bresenham_octant_low(
 
 	delta.x = l.b.x - l.a.x;
 	delta.y = l.b.y - l.a.y;
-	yi = 1;
-	if (delta.y < 0)
-	{
-		yi = -1;
-		delta.y = -delta.y;
-	}
+	yi = delta.y < 0 ? -1 : 1;
+	delta.y = delta.y * yi;
 	derror = 2 * delta.y - delta.x;
 	p = mk_point(l.a.x, l.a.y);
 	while (p.x < l.b.x)
@@ -63,12 +56,8 @@ static void	gfx_line_bresenham_octant_high(
 
 	delta.x = l.b.x - l.a.x;
 	delta.y = l.b.y - l.a.y;
-	xi = 1;
-	if (delta.x < 0)
-	{
-		xi = -1;
-		delta.x = -delta.x;
-	}
+	xi = delta.x < 0 ? -1 : 1;
+	delta.x = delta.x * xi;
 	derror = 2 * delta.x - delta.y;
 	p = mk_point(l.a.x, l.a.y);
 	while (p.y < l.b.y)
@@ -84,7 +73,7 @@ static void	gfx_line_bresenham_octant_high(
 	}
 }
 
-void	gfx_line(
+void		gfx_line(
 	t_gfx_state *st,
 	t_render_target trgt,
 	t_line l,

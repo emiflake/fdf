@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_math.h                                         :+:    :+:            */
+/*   gfx_vec3.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 14:16:17 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 17:54:56 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/02 19:10:30 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/02 19:12:48 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GFX_MATH_H
-# define GFX_MATH_H
+#include <libgfx.h>
 
-# define RANGE_LERP(n,lower,upper,min,max) (((b)-(a))*((x)-(min))/((max)-(min)))+(a)
-# define SIGN(n) (n > 0 ? 1 : -1)
+t_vec3	mk_vec3(double x, double y, double z)
+{
+	t_vec3 v;
 
-int	gfx_math_clamp(int value, int min, int max);
-
-#endif
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}

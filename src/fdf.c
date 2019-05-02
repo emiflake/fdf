@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/29 19:32:58 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 20:17:13 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 19:27:55 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,26 @@ int	render(t_gfx_state *st)
 	t_state *user_state;
 	count++;
 	user_state = st->user_state;
-	gfx_debug_print_keystate(st->key_state);
 	mlx_clear_window(st->mlx_ptr, st->win_ptr);
 	gfx_fill_trgt(st, st->buffer, 0xFFFFFF);
 	t_point p = mk_point(gfx_math_clamp(st->mouse_state.mouse_pos.x, 0, WIN_WIDTH - 1), gfx_math_clamp(st->mouse_state.mouse_pos.y, 0, WIN_HEIGHT - 1));
-	for (int x = 0; x < WIN_WIDTH; x += 50)
-		for (int y = 0; y < WIN_WIDTH; y += 50)
-				gfx_line(st, st->buffer, mk_line(mk_point(x, y), p), gfx_color(255, 0, 0, 255));
+	t_line l = mk_line(p, mk_point(0, 0));
+	t_hsl hsl = mk_hsl(0, 1, 0.5);
+	for (int x = 0; x < WIN_WIDTH; x += 10)
+	{
+		l.b.x = x;
+		for (int y = 0; y < WIN_HEIGHT; y += 10)
+		{
+			hsl.h = (hsl.h + 1) % 360;
+			l.b.y = y;
+			gfx_line(st, st->buffer, l, gfx_color_from_rgb(gfx_hsl2rgb(hsl)));
+		}
+	}
 	gfx_blit_image(st, st->buffer, GFX_P_ORIGIN);
-	mlx_string_put(st->mlx_ptr, st->win_ptr, 10, 10, gfx_color(0, 0, 0, 255), ft_itoa(gfx_get_fps(1)));
+	char *fps = ft_itoa(gfx_get_fps(1));
+	mlx_string_put(st->mlx_ptr, st->win_ptr, 10, 10, gfx_color(255, 255, 255, 255), fps);
+	mlx_string_put(st->mlx_ptr, st->win_ptr, WIN_WIDTH - 200, 10, gfx_color(0, 0, 0, 255), fps);
+	free(fps);
 	return (0);
 }
 

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_math.h                                         :+:    :+:            */
+/*   gfx_dimensions.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 14:16:17 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 17:54:56 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/02 18:33:56 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/02 18:34:11 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GFX_MATH_H
-# define GFX_MATH_H
+#include <libgfx.h>
 
-# define RANGE_LERP(n,lower,upper,min,max) (((b)-(a))*((x)-(min))/((max)-(min)))+(a)
-# define SIGN(n) (n > 0 ? 1 : -1)
+t_dimensions	mk_dimensions(int width, int height)
+{
+	t_dimensions p;
 
-int	gfx_math_clamp(int value, int min, int max);
-
-#endif
+	p.width = width;
+	p.height = height;
+	return (p);
+}

@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 00:56:50 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 14:07:09 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 19:34:31 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ typedef struct	s_hsl
 	double	s;
 	double	l;
 }				t_hsl;
+
+typedef struct	s_gradient
+{
+	int start;
+	int end;
+}				t_gradient;
 
 /*
 ** Convert RGB color to int32 color

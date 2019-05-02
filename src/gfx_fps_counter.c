@@ -6,12 +6,11 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/01 16:01:10 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/01 16:10:50 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 19:03:27 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_fps_counter.h"
-# include <stdio.h>
 
 long	gfx_get_current_epoch(void)
 {
@@ -20,7 +19,6 @@ long	gfx_get_current_epoch(void)
 	struct timespec	spec;
 
 	clock_gettime(CLOCK_REALTIME, &spec);
-
 	s = spec.tv_sec;
 	ns = spec.tv_nsec;
 	return (s * 1000 + ns / 1000000);

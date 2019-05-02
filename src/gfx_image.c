@@ -6,13 +6,13 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/30 13:43:21 by nmartins       #+#    #+#                */
-/*   Updated: 2019/04/30 23:28:21 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 18:30:23 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_image.h"
 
-t_gfx_image	*gfx_create_image(t_gfx_state *st, t_dimensions dim)
+t_gfx_image			*gfx_create_image(t_gfx_state *st, t_dimensions dim)
 {
 	t_gfx_image *img;
 
