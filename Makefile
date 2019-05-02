@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/18 20:11:18 by nmartins       #+#    #+#                 #
-#    Updated: 2019/05/01 19:59:41 by nmartins      ########   odam.nl          #
+#    Updated: 2019/05/02 20:22:12 by nmartins      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,30 +19,29 @@ NAME=fdf
 
 MAIN=			fdf
 OBJECT_NAMES=	\
-				gfx_color \
-				gfx_primitive_types \
-				gfx_primitive_shapes \
-				gfx_events \
-				gfx_state \
-				gfx_image \
-				gfx_keys \
-				gfx_fps_counter \
-				gfx_lines \
-				gfx_mouse \
-				gfx_math \
+				read_heights \
+				my_render \
+				my_keys \
+				my_mouse \
+
+
+# dependencies
+#
+# MINILIBX, LIBFT, LIBGFX
+
+MINILIB=./minilibx_macos
+LIBFT=./libft
+LIBGFX=./libgfx
 
 # do not configure
 CC=gcc
-INCLUDES=-I./inc -I./libft -I./$(MINILIB)
-TEST_INCLUDS=-I$(HOME)/.brew/include
+INCLUDES=-I./inc -I./libft -I./$(MINILIB) -I./$(LIBGFX)/inc
 SRC=./src
 OBJ=./.obj
-LIBFT=./libft
-MINILIB=./minilibx_macos
 EXTRA=
 CFLAGS=-Werror -Wall -Wextra $(EXTRA)
 FRAMEWORKS=-framework OpenGL -framework AppKit
-LFLAGS=-L$(LIBFT) -lft -L$(MINILIB) -lmlx
+LFLAGS=-L$(LIBFT) -lft -L$(MINILIB) -lmlx -L$(LIBGFX) -lgfx
 OBJECTS=$(patsubst %, $(OBJ)/%.o, $(MAIN) $(OBJECT_NAMES))
 SOURCES=$(patsubst %, $(SRC)/%.c, $(MAIN) $(OBJECT_NAMES))
 
@@ -58,12 +57,6 @@ RED=\x1b[31m
 #########
 all: $(NAME)
 
-test: $(TEST_NAME)
-	@./$(TEST_NAME)
-
-debug:
-	$(MAKE) -B "EXTRA=$(EXTRA) -g"
-
 $(LIBFT)/libft.a:
 	@echo ">>= Making libft"
 	@$(MAKE) -C $(LIBFT)
@@ -75,6 +68,17 @@ libft_clean:
 libft_fclean:
 	@$(MAKE) -C $(LIBFT) fclean
 
+$(LIBGFX)/libgfx.a:
+	@echo ">>= Making libgfx"
+	@$(MAKE) -C $(LIBGFX) EXTRA=$(EXTRA) LIBFT_LOC=../$(LIBFT) MINILIB_LOC=../$(MINILIB)
+	@echo ">>= Done making libgfx"
+
+libgfx_clean:
+	@$(MAKE) -C $(LIBGFX) clean
+
+libgfx_fclean:
+	@$(MAKE) -C $(LIBGFX) fclean
+
 $(MINILIB)/libmlx.a:
 	@echo ">>= Making minilibx"
 	@$(MAKE) -C $(MINILIB)
@@ -83,7 +87,7 @@ $(MINILIB)/libmlx.a:
 minilib_clean:
 	@$(MAKE) -C $(MINILIB) clean
 
-$(NAME): $(LIBFT)/libft.a $(MINILIB)/libmlx.a $(OBJECTS)
+$(NAME): $(LIBFT)/libft.a $(MINILIB)/libmlx.a $(LIBGFX)/libgfx.a $(OBJECTS)
 	@printf " λ Linking $(UNDERLINE)$(BLUE)$@$(RESET)\n"
 	@$(CC) -o $@ $(FRAMEWORKS) $(OBJECTS) $(CFLAGS) $(LFLAGS)
 
@@ -92,11 +96,11 @@ $(OBJ)/%.o: $(SRC)/%.c
 	@printf " λ Making object $(UNDERLINE)$(BLUE)$^$(RESET)\n"
 	@$(CC) -c -o $@ $^ $(CFLAGS) $(INCLUDES)
 
-clean: minilib_clean libft_clean
+clean: minilib_clean libft_clean libgfx_clean
 	@echo "$(RED)Cleaning objects$(RESET)"
 	@rm -rf $(OBJ)
 
-fclean: libft_fclean clean
+fclean: libft_fclean libgfx_fclean clean
 	@echo "$(RED)Cleaning $(NAME) and $(TEST_NAME)$(RESET)"
 	@rm -rf $(NAME)
 	@rm -rf $(TEST_NAME)

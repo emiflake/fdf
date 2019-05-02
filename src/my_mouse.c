@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_point.c                                        :+:    :+:            */
+/*   my_mouse.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/02 18:32:44 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 19:03:20 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/02 20:21:39 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/02 20:21:48 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libgfx.h>
+#include <libft.h>
 
-t_point			mk_point(int x, int y)
+int	mousepress(int button_code, int x, int y, t_gfx_state *st)
 {
-	t_point p;
-
-	p.x = x;
-	p.y = y;
-	return (p);
+	(void)x;
+	(void)y;
+	gfx_mouse_state_down(&st->mouse_state, button_code);
+	return (0);
 }
 
-t_point			point_add(t_point a, t_point b)
+int	mouserelease(int button_code, int x, int y, t_gfx_state *st)
 {
-	return (mk_point(a.x + b.x, a.y + b.y));
+	(void)x;
+	(void)y;
+	gfx_mouse_state_up(&st->mouse_state, button_code);
+	return (0);
 }
 
-t_line			mk_line(t_point a, t_point b)
+int	mousemove(int x, int y, t_gfx_state *st)
 {
-	t_line l;
-
-	l.a = a;
-	l.b = b;
-	return (l);
+	gfx_mouse_update_position(&st->mouse_state, x, y);
+	return (0);
 }

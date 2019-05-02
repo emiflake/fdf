@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_math.h                                         :+:    :+:            */
+/*   read_heights.h                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/30 14:16:17 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 17:54:56 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/02 20:05:23 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/02 20:06:48 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GFX_MATH_H
-# define GFX_MATH_H
+#ifndef READ_HEIGHTS_H
+# define READ_HEIGHTS_H
 
-# define RANGE_LERP(n,lower,upper,min,max) (((b)-(a))*((x)-(min))/((max)-(min)))+(a)
-# define SIGN(n) (n > 0 ? 1 : -1)
+# include <libgfx.h>
 
-int	gfx_math_clamp(int value, int min, int max);
+int		read_heights(char *filename, int *heights, int *width);
 
 #endif

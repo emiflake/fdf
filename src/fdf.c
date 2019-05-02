@@ -6,60 +6,15 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/29 19:32:58 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 19:27:55 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 20:22:31 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <mlx.h>
 #include <libgfx.h>
 #include <libft.h>
-#include <math.h>
-
-#define WIN_HEIGHT 900
-#define WIN_WIDTH 1600
-
-typedef struct	s_state
-{
-}				t_state;
-
-int	keypress(int key_code, t_gfx_state *st)
-{
-	gfx_key_state_down(st->key_state, key_code);
-	if (key_code == KC_ESC || key_code == KC_Q)
-		exit(0);
-	return (0);
-}
-
-int	keyrelease(int key_code, t_gfx_state *st)
-{
-	gfx_key_state_up(st->key_state, key_code);
-	return (0);
-}
-
-int mousepress(int button_code, int x, int y, t_gfx_state *st)
-{
-	(void)x;
-	(void)y;
-	gfx_mouse_state_down(&st->mouse_state, button_code);
-	return (0);
-}
-
-int mouserelease(int button_code, int x, int y, t_gfx_state *st)
-{
-	(void)x;
-	(void)y;
-	gfx_mouse_state_up(&st->mouse_state, button_code);
-	return (0);
-}
-
-int mousemove(int x, int y, t_gfx_state *st)
-{
-	gfx_mouse_update_position(&st->mouse_state, x, y);
-	return (0);
-}
+#include "read_heights.h"
+#include "events.h"
+#include "const.h"
 
 int	close(t_gfx_state *st)
 {
@@ -80,45 +35,16 @@ int	expose(t_gfx_state *st)
 	return (0);
 }
 
-int	render(t_gfx_state *st)
-{
-	static int count;
-	t_state *user_state;
-	count++;
-	user_state = st->user_state;
-	mlx_clear_window(st->mlx_ptr, st->win_ptr);
-	gfx_fill_trgt(st, st->buffer, 0xFFFFFF);
-	t_point p = mk_point(gfx_math_clamp(st->mouse_state.mouse_pos.x, 0, WIN_WIDTH - 1), gfx_math_clamp(st->mouse_state.mouse_pos.y, 0, WIN_HEIGHT - 1));
-	t_line l = mk_line(p, mk_point(0, 0));
-	t_hsl hsl = mk_hsl(0, 1, 0.5);
-	for (int x = 0; x < WIN_WIDTH; x += 10)
-	{
-		l.b.x = x;
-		for (int y = 0; y < WIN_HEIGHT; y += 10)
-		{
-			hsl.h = (hsl.h + 1) % 360;
-			l.b.y = y;
-			gfx_line(st, st->buffer, l, gfx_color_from_rgb(gfx_hsl2rgb(hsl)));
-		}
-	}
-	gfx_blit_image(st, st->buffer, GFX_P_ORIGIN);
-	char *fps = ft_itoa(gfx_get_fps(1));
-	mlx_string_put(st->mlx_ptr, st->win_ptr, 10, 10, gfx_color(255, 255, 255, 255), fps);
-	mlx_string_put(st->mlx_ptr, st->win_ptr, WIN_WIDTH - 200, 10, gfx_color(0, 0, 0, 255), fps);
-	free(fps);
-	return (0);
-}
-
 int	main(void)
 {
 	t_gfx_state	st;
 	t_hooks		hooks;
-	t_state		ust;
 
 	ft_memset(&st, 0, sizeof(t_gfx_state));
 	ft_memset(&hooks, 0, sizeof(t_hooks));
 	st.user_state = &st;
-	if (gfx_mk_state(&st, mk_dimensions(WIN_WIDTH, WIN_HEIGHT), "FdF - A Wireframe Viewer") == -1)
+	if (gfx_mk_state(&st, mk_dimensions(WIN_WIDTH, WIN_HEIGHT),
+		"FdF - A Wireframe Viewer") == -1)
 		return (EXIT_FAILURE);
 	hooks.keypress = keypress;
 	hooks.keyrelease = keyrelease;
@@ -128,7 +54,6 @@ int	main(void)
 	hooks.mousemove = mousemove;
 	hooks.mousepress = mousepress;
 	hooks.mouserelease = mouserelease;
-	st.user_state = &ust;
 	gfx_register_hooks(&st, hooks);
 	gfx_loop(&st);
 	return (EXIT_SUCCESS);

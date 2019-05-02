@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   gfx_vec3.c                                         :+:    :+:            */
+/*   my_keys.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/02 19:10:30 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 19:12:48 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/02 20:20:40 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/02 20:20:51 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include <libgfx.h>
 
-t_vec3	mk_vec3(double x, double y, double z)
+int	keypress(int key_code, t_gfx_state *st)
 {
-	t_vec3 v;
+	gfx_key_state_down(st->key_state, key_code);
+	if (key_code == KC_ESC || key_code == KC_Q)
+		exit(0);
+	return (0);
+}
 
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
+int	keyrelease(int key_code, t_gfx_state *st)
+{
+	gfx_key_state_up(st->key_state, key_code);
+	return (0);
 }
