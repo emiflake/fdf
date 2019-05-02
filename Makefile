@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/18 20:11:18 by nmartins       #+#    #+#                 #
-#    Updated: 2019/05/02 20:22:12 by nmartins      ########   odam.nl          #
+#    Updated: 2019/05/02 20:54:20 by nmartins      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ OBJECT_NAMES=	\
 				my_render \
 				my_keys \
 				my_mouse \
+				my_misc_events \
+				state \
 
 
 # dependencies

@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   my_keys.c                                          :+:    :+:            */
+/*   my_misc_events.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/02 20:20:40 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 20:55:18 by nmartins      ########   odam.nl         */
+/*   Created: 2019/05/02 20:46:55 by nmartins       #+#    #+#                */
+/*   Updated: 2019/05/02 20:47:11 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <libgfx.h>
-#include "state.h"
 
-int	keypress(int key_code, t_gfx_state *st)
+int	close(t_gfx_state *st)
 {
-	gfx_key_state_down(st->key_state, key_code);
-	if (key_code == KC_ESC || key_code == KC_Q)
-		exit(0);
-	if (key_code == KC_UP)
-		((t_state*)st->user_state)->counter++;
-	if (key_code == KC_DOWN)
-		((t_state*)st->user_state)->counter--;
+	(void)st;
+	gfx_free_state(st);
+	exit(0);
 	return (0);
 }
 
-int	keyrelease(int key_code, t_gfx_state *st)
+/*
+** Window: *appears*
+** owo what's this
+*/
+
+int	expose(t_gfx_state *st)
 {
-	gfx_key_state_up(st->key_state, key_code);
+	(void)st;
 	return (0);
 }
