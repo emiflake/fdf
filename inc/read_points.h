@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   read_heights.h                                     :+:    :+:            */
+/*   read_points.h                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/02 20:05:23 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 20:06:48 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 23:45:56 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include <libgfx.h>
 
-int		read_heights(char *filename, int *heights, int *width);
+int		read_points(char *filename, t_vec3 **points, int *point_count);
 
 #endif

@@ -6,24 +6,24 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/29 19:32:58 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 20:53:13 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/02 23:41:56 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libgfx.h>
 #include <libft.h>
-#include "read_heights.h"
+#include "read_points.h"
 #include "events.h"
 #include "const.h"
 #include "state.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_gfx_state	st;
 	t_hooks		hooks;
 	t_state		state;
 
-	init_state(&state);
+	init_state(&state, argc == 2 ? argv[1] : "42.fdf");
 	ft_memset(&st, 0, sizeof(t_gfx_state));
 	ft_memset(&hooks, 0, sizeof(t_hooks));
 	st.user_state = &state;

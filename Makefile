@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/18 20:11:18 by nmartins       #+#    #+#                 #
-#    Updated: 2019/05/02 20:54:20 by nmartins      ########   odam.nl          #
+#    Updated: 2019/05/02 23:18:37 by nmartins      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME=fdf
 
 MAIN=			fdf
 OBJECT_NAMES=	\
-				read_heights \
+				read_points \
 				my_render \
 				my_keys \
 				my_mouse \
