@@ -15,28 +15,74 @@
 #include "const.h"
 #include "state.h"
 # include <stdio.h>
+#include <math.h>
 
 int	handle_keys(t_gfx_state *st)
 {
 	t_state *mst;
 
 	mst = st->user_state;
-	if (st->key_state[KC_UP])
-		mst->camera_pos.z += 0.3;
-	if (st->key_state[KC_DOWN])
-		mst->camera_pos.z -= 0.3;
-	if (st->key_state[KC_LEFT])
-		mst->camera_pos.x += 0.1;
-	if (st->key_state[KC_RIGHT])
-		mst->camera_pos.x -= 0.1;
+	if (st->key_state[KC_S])
+		mst->camera_pos.z += 0.5;
+	if (st->key_state[KC_W])
+		mst->camera_pos.z -= 0.5;
 	if (st->key_state[KC_A])
-		mst->camera_pos.y += 0.1;
-	if (st->key_state[KC_O])
-		mst->camera_pos.y -= 0.1;
-	if (st->key_state[KC_P])
+		mst->camera_pos.x += 0.5;
+	if (st->key_state[KC_D])
+		mst->camera_pos.x -= 0.5;
+	if (st->key_state[KC_Q])
+		mst->camera_pos.y += 0.5;
+	if (st->key_state[KC_E])
+		mst->camera_pos.y -= 0.5;
+	if (st->key_state[KC_UP])
 		mst->camera_rotation.x += 0.01;
-	if (st->key_state[KC_Y])
+	if (st->key_state[KC_DOWN])
 		mst->camera_rotation.x -= 0.01;
+	if (st->key_state[KC_O])
+		mst->camera_rotation.z -= 0.01;
+	if (st->key_state[KC_U])
+		mst->camera_rotation.z += 0.01;
+	if (st->key_state[KC_LEFT])
+		mst->camera_rotation.y += 0.01;
+	if (st->key_state[KC_RIGHT])
+		mst->camera_rotation.y -= 0.01;
+	return (0);
+}
+
+#define FOV 500
+
+int	render_lines(t_gfx_state *st, t_vec3 a, t_vec3 b)
+{
+	t_state *mst;
+	t_vec3 alterated_a;
+	t_vec3 alterated_b;
+	t_point proj_a;
+	t_point proj_b;
+
+	mst = st->user_state;
+	alterated_a = sub_vec3(gfx_rotation(add_vec3(a, mst->camera_pos),
+		mst->camera_rotation), mst->camera_pos);
+	alterated_b = sub_vec3(gfx_rotation(add_vec3(b, mst->camera_pos),
+		mst->camera_rotation), mst->camera_pos);
+	proj_a = mk_point(
+		WIN_WIDTH / 2 + (alterated_a.x + mst->camera_pos.x) /
+			(alterated_a.z + mst->camera_pos.z) * FOV,
+		WIN_HEIGHT / 2 + (alterated_a.y + mst->camera_pos.y) /
+		(alterated_a.z + mst->camera_pos.z) * FOV);
+	proj_b = mk_point(
+		WIN_WIDTH / 2 + (alterated_b.x + mst->camera_pos.x) /
+		(alterated_b.z + mst->camera_pos.z) * FOV,
+		WIN_HEIGHT / 2 + (alterated_b.y + mst->camera_pos.y) /
+		(alterated_b.z + mst->camera_pos.z) * FOV);
+	if (proj_a.x > WIN_WIDTH || proj_a.x < 0
+	|| proj_a.y > WIN_HEIGHT || proj_a.y < 0
+	|| (alterated_a.z + mst->camera_pos.z) * FOV <= 0
+	|| proj_b.x > WIN_WIDTH || proj_b.x < 0
+	|| proj_b.y > WIN_HEIGHT || proj_b.y < 0
+	|| (alterated_b.z + mst->camera_pos.z) * FOV <= 0)
+		return (-1);
+	gfx_line(st, st->buffer, mk_line(proj_a, proj_b),
+		gfx_color_from_rgb(gfx_hsl2rgb(mk_hsl(0, fmax(0, fmin(1, -a.y/100)), 0.5))));
 	return (0);
 }
 
@@ -48,21 +94,23 @@ int	render(t_gfx_state *st)
 	mst = st->user_state;
 	handle_keys(st);
 	gfx_fill_trgt(st, st->buffer, 0x00);
-	fps = ft_itoa(gfx_get_fps(1));
-	// printf("%d points\n", mst->point_count);
-	for (int i = 0; i < mst->point_count; i++)
+	int width;
+	width = mst->point_count / mst->height;
+	for (int y = 0; y < mst->height - 1; y++)
 	{
-		double fov_dividend = mst->camera_pos.z / 100;
-		t_vec3 v3 = mst->points[i];
-		v3 = sub_vec3(gfx_rotation_x(add_vec3(v3, mst->camera_pos), mst->camera_rotation.x), mst->camera_pos);
-		t_point p = mk_point(WIN_WIDTH / 2 + (v3.x + mst->camera_pos.x) / (v3.z + fov_dividend), WIN_HEIGHT / 2 + (v3.y + mst->camera_pos.y) / (v3.z + fov_dividend));
-		if (p.x > WIN_WIDTH || p.x < 0 || p.y > WIN_HEIGHT || p.y < 0 || v3.z + fov_dividend <= 0)
-			continue;
-		gfx_blit_pixel(st, st->buffer, p, 0xFFFFFF);
+		for (int x = 0; x < width; x++)
+		{
+			if (x < width - 1)
+				render_lines(st, mst->points[y * width + x], mst->points[y * width + x + 1]);
+			if (y < mst->height - 1)
+				render_lines(st, mst->points[y * width + x], mst->points[(y + 1) * width + x]);
+		}
 	}
 	gfx_blit_image(st, st->buffer, mk_point(0, 0));
+	fps = ft_itoa(gfx_get_fps(1));
+	ft_strreplace(&fps, ft_strjoin(fps, " frames per second"));
 	mlx_string_put(st->mlx_ptr,
-		st->win_ptr, WIN_WIDTH - 200, 10, gfx_color(255, 255, 255, 255), fps);
+		st->win_ptr, WIN_WIDTH - 300, 10, gfx_color(255, 255, 255, 255), fps);
 	free(fps);
 	return (0);
 }

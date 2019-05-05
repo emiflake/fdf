@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/18 20:11:18 by nmartins       #+#    #+#                 #
-#    Updated: 2019/05/02 23:18:37 by nmartins      ########   odam.nl          #
+#    Updated: 2019/05/05 15:18:39 by nmartins      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,6 +108,10 @@ fclean: libft_fclean libgfx_fclean clean
 	@rm -rf $(TEST_NAME)
 
 re: fclean all
+quickre:
+	@rm -rf $(OBJ)
+	@rm -rf $(NAME)
+	@$(MAKE) -C .
 
 .SECONDARY: $(OBJECTS)
 .PHONY: all debug libft clean fclean re
