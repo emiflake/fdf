@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/02 20:50:12 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/05 16:25:56 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/06 14:43:18 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void			init_state(t_state *trgt, char *filename)
 	ft_putstr("Reading file ");
 	ft_putstr(filename);
 	ft_putstr("...\n");
+	trgt->points = malloc(sizeof(t_vec3) * 1000000);
 	read_points(filename, trgt->points, &trgt->point_count, &trgt->height);
 	ft_putstr("Read ");
 	ft_putnbr(trgt->point_count);

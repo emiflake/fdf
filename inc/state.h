@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/02 20:48:59 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/05 15:54:08 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/06 14:41:32 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ typedef struct	s_state
 {
 	t_vec3	camera_pos;
 	t_vec3	camera_rotation;
-	t_vec3	points[100000];
+	t_vec3	*points;
 	int		height;
 	int		point_count;
 }				t_state;
