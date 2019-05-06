@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/02 20:04:16 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/06 14:45:18 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/06 19:22:25 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,20 @@ int		read_points(char *filename, t_vec3 *points, int *points_count, int *height)
 		{
 			p.x = 0;
 			nums = ft_strsplit(line, ' ');
-			while (nums[(int)(p.x)] && *points_count < 1000000)
+			while (nums[(int)(p.x)] && *points_count < 10000000)
 			{
-				p.y = -(double)ft_atoi(nums[(int)(p.x)]) / 10;
+				p.y = (double)ft_atoi(nums[(int)(p.x)]) / 10;
+				free(nums[(int)(p.x)]);
 				points[*points_count] = p;
 				(*points_count)++;
 				p.x++;
 			}
+			free(nums[(int)(p.x)]);
+			free(nums);
 			(*height)++;
 		}
 		free(line);
-		p.z++;
+		p.z--;
 	}
 	(void)points;
 	(void)points_count;
