@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/02 20:50:12 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/06 19:12:37 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/05/08 18:39:26 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void			init_state(t_state *trgt, char *filename)
 	ft_putnbr(trgt->point_count / trgt->height);
 	ft_putstr("\n");
 	trgt->fov = 500;
-	trgt->camera_pos = mk_vec3(10, 100, 10);
+	trgt->camera_pos = mk_vec3(10, 10, 10);
 	trgt->camera_rotation = mk_vec3(0, 0, 0);
 }

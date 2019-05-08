@@ -54,16 +54,17 @@ int	render_lines(t_gfx_state *st, t_vec3 a, t_vec3 b)
 	t_vec3 alterated_b;
 	t_point proj_a;
 	t_point proj_b;
+	t_matrix rotator;
 	int fov;
 
 	mst = st->user_state;
 	fov = mst->fov;
 	// alterated_a = a;
 	// alterated_b = b;
-	alterated_a = sub_vec3(gfx_rotation(add_vec3(a, mst->camera_pos),
-		mst->camera_rotation), mst->camera_pos);
-	alterated_b = sub_vec3(gfx_rotation(add_vec3(b, mst->camera_pos),
-		mst->camera_rotation), mst->camera_pos);
+	ft_memset(rotator, 0l, sizeof(t_matrix));
+	gfx_rotation_matrix_x(rotator, mst->camera_rotation.x);
+	alterated_a = sub_vec3(gfx_rotate(rotator, add_vec3(a, mst->camera_pos)), mst->camera_pos);
+	alterated_b = sub_vec3(gfx_rotate(rotator, add_vec3(b, mst->camera_pos)), mst->camera_pos);
 	proj_a = mk_point(
 		WIN_WIDTH / 2 + (alterated_a.x + mst->camera_pos.x) /
 			(alterated_a.z + mst->camera_pos.z) * fov,
