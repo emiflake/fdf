@@ -11,39 +11,29 @@
 /* ************************************************************************** */
 
 #include <libgfx.h>
+#include <math.h>
+# include <stdio.h>
+
 #include <libft.h>
 #include "const.h"
 #include "state.h"
-# include <stdio.h>
-#include <math.h>
+#include "camera.h"
 
 int	handle_keys(t_gfx_state *st)
 {
+	const double rot_speed = 0.02;
+	const double mov_speed = 0.05;
 	t_state *mst;
 
 	mst = st->user_state;
-	mst->camera_pos.z += st->key_state[KC_S] * 0.5;
-	mst->camera_pos.z -= st->key_state[KC_W] * 0.5;
-	mst->camera_pos.x -= st->key_state[KC_D] * 0.5;
-	mst->camera_pos.x += st->key_state[KC_A] * 0.5;
-	mst->camera_pos.y += st->key_state[KC_Q] * 0.5;
-	mst->camera_pos.y -= st->key_state[KC_Q] * 0.5;
-	if (st->key_state[KC_Q])
-		mst->camera_pos.y += 0.5;
-	if (st->key_state[KC_E])
-		mst->camera_pos.y -= 0.5;
-	if (st->key_state[KC_UP])
-		mst->camera_rotation.x += 0.01;
-	if (st->key_state[KC_DOWN])
-		mst->camera_rotation.x -= 0.01;
-	if (st->key_state[KC_O])
-		mst->camera_rotation.z -= 0.01;
-	if (st->key_state[KC_U])
-		mst->camera_rotation.z += 0.01;
-	if (st->key_state[KC_LEFT])
-		mst->camera_rotation.y += 0.01;
-	if (st->key_state[KC_RIGHT])
-		mst->camera_rotation.y -= 0.01;
+	camera_move(&mst->camera,
+		st->key_state[KC_D] * -mov_speed + st->key_state[KC_A] * mov_speed,
+		st->key_state[KC_Q] * -mov_speed + st->key_state[KC_E] * mov_speed,
+		st->key_state[KC_S] * -mov_speed + st->key_state[KC_W] * mov_speed);
+	camera_rotate(&mst->camera,
+		st->key_state[KC_DOWN] * -rot_speed + st->key_state[KC_UP] * rot_speed,
+		st->key_state[KC_RIGHT] * -rot_speed + st->key_state[KC_LEFT] * rot_speed,
+		st->key_state[KC_O] * -rot_speed + st->key_state[KC_U] * rot_speed);
 	return (0);
 }
 
@@ -59,24 +49,24 @@ int	render_lines(t_gfx_state *st, t_vec3 a, t_vec3 b)
 
 	mst = st->user_state;
 	fov = mst->fov;
-	// alterated_a = a;
-	// alterated_b = b;
-	ft_memset(rotator, 0l, sizeof(t_matrix));
-	gfx_rotation_matrix_x(rotator, mst->camera_rotation.x);
-	alterated_a = sub_vec3(gfx_rotate(rotator, add_vec3(a, mst->camera_pos)), mst->camera_pos);
-	alterated_b = sub_vec3(gfx_rotate(rotator, add_vec3(b, mst->camera_pos)), mst->camera_pos);
+	alterated_a = a;
+	alterated_b = b;
+	ft_memset(rotator, 0, sizeof(t_matrix));
+	gfx_rotation_matrix_x(rotator, mst->camera.rotation.x);
+	alterated_a = sub_vec3(gfx_rotation(add_vec3(a, mst->camera.position), mst->camera.rotation), mst->camera.position);
+	alterated_b = sub_vec3(gfx_rotation(add_vec3(b, mst->camera.position), mst->camera.rotation), mst->camera.position);
 	proj_a = mk_point(
-		WIN_WIDTH / 2 + (alterated_a.x + mst->camera_pos.x) /
-			(alterated_a.z + mst->camera_pos.z) * fov,
-		WIN_HEIGHT / 2 - (alterated_a.y + mst->camera_pos.y) /
-		(alterated_a.z + mst->camera_pos.z) * fov);
+		WIN_WIDTH / 2 + (alterated_a.x + mst->camera.position.x) /
+			(alterated_a.z + mst->camera.position.z) * fov,
+		WIN_HEIGHT / 2 - (alterated_a.y + mst->camera.position.y) /
+		(alterated_a.z + mst->camera.position.z) * fov);
 	proj_b = mk_point(
-		WIN_WIDTH / 2 + (alterated_b.x + mst->camera_pos.x) /
-		(alterated_b.z + mst->camera_pos.z) * fov,
-		WIN_HEIGHT / 2 - (alterated_b.y + mst->camera_pos.y) /
-		(alterated_b.z + mst->camera_pos.z) * fov);
-	if ((alterated_a.z + mst->camera_pos.z) * fov <= 0
-	 || (alterated_b.z + mst->camera_pos.z) * fov <= 0
+		WIN_WIDTH / 2 + (alterated_b.x + mst->camera.position.x) /
+		(alterated_b.z + mst->camera.position.z) * fov,
+		WIN_HEIGHT / 2 - (alterated_b.y + mst->camera.position.y) /
+		(alterated_b.z + mst->camera.position.z) * fov);
+	if ((alterated_a.z + mst->camera.position.z) * fov <= 0
+	 || (alterated_b.z + mst->camera.position.z) * fov <= 0
 	 || ((proj_a.x < 0
 	 || proj_a.x >= WIN_WIDTH
 	 || proj_a.y < 0
@@ -90,7 +80,7 @@ int	render_lines(t_gfx_state *st, t_vec3 a, t_vec3 b)
 		//  ft_putchar('.');
 		 return (-1);
 	 }
-	gfx_line(st, st->buffer, mk_line(proj_a, proj_b), gfx_color_from_rgb(gfx_hsl2rgb(mk_hsl(((int)a.x + gfx_get_current_epoch() / 10)/10 % 360, 1, 0.5))));
+	gfx_line(st, st->buffer, mk_line(proj_a, proj_b), 0xFFFFFF);
 		// gfx_color_from_rgb(gfx_hsl2rgb(mk_hsl(0, fmax(0, fmin(1, -a.y/100)), 0.5))));
 	return (0);
 }

@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   state.h                                            :+:    :+:            */
+/*   camera.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/02 20:48:59 by nmartins       #+#    #+#                */
-/*   Updated: 2019/06/03 17:25:14 by nmartins      ########   odam.nl         */
+/*   Created: 2019/06/03 17:17:18 by nmartins       #+#    #+#                */
+/*   Updated: 2019/06/03 17:29:23 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STATE_H
-# define STATE_H
+#ifndef CAMERA_H
+# define CAMERA_H
 
-# include "camera.h"
+# include <libgfx.h>
 
-typedef struct	s_state
+typedef struct	s_camera
 {
-	t_camera	camera;
-	t_vec3		*points;
-	int			height;
-	int			point_count;
-	int			fov;
-}				t_state;
+	t_vec3	position;
+	t_vec3	rotation;
+}				t_camera;
 
-void			init_state(t_state *trgt, char *filename);
+void	camera_move(t_camera *camera, double dx, double dy, double dz);
+void	camera_rotate(t_camera *camera, double dx, double dy, double dz);
 
 #endif
