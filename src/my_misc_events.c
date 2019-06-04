@@ -6,11 +6,12 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/02 20:46:55 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/02 20:47:11 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/06/03 19:30:23 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libgfx.h>
+#include <stdio.h>
 
 int	close(t_gfx_state *st)
 {

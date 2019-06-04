@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/02 20:04:16 by nmartins       #+#    #+#                */
-/*   Updated: 2019/05/06 19:22:25 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/06/04 14:03:54 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,5 @@ int		read_points(char *filename, t_vec3 *points, int *points_count, int *height)
 		free(line);
 		p.z--;
 	}
-	(void)points;
-	(void)points_count;
 	return (0);
 }
