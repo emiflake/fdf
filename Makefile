@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
+#    Makefile                                                :+:    :+:        #
 #                                                      +:+                     #
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/18 20:11:18 by nmartins       #+#    #+#                 #
-#    Updated: 2019/06/09 15:14:02 by nmartins      ########   odam.nl          #
+#    Updated: 2019/06/09 16:03:45 by nmartins            ########   odam.nl    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,6 +114,9 @@ quickre:
 	@rm -rf $(OBJ)
 	@rm -rf $(NAME)
 	@$(MAKE) -C .
+
+superfast:
+	@$(MAKE) EXTRA=-O2 re -C . 
 
 .SECONDARY: $(OBJECTS)
 .PHONY: all debug libft clean fclean re

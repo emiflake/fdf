@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/03 17:17:18 by nmartins       #+#    #+#                */
-/*   Updated: 2019/06/09 15:11:36 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/06/09 15:53:03 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ typedef struct	s_camera
 	t_vec3	rotation;
 }				t_camera;
 
-void			camera_move(t_camera *camera, double dx, double dy, double dz);
-void			camera_rotate(t_camera *camera, double dx, double dy, double dz);
+void			camera_move(
+	t_camera *camera,
+	double dx, double dy, double dz);
+void			camera_rotate(
+	t_camera *camera,
+	double dx, double dy, double dz);
 
 #endif

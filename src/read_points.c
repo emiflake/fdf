@@ -6,14 +6,12 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/02 20:04:16 by nmartins       #+#    #+#                */
-/*   Updated: 2019/06/09 13:58:04 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/06/09 15:56:01 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "read_points.h"
 #include <get_next_line.h>
-#include <unistd.h>
-#include <sys/fcntl.h>
 #include <math.h>
 #include <stdio.h>
 
@@ -32,7 +30,7 @@ void	read_line(t_vec3 *points, char **nums, int *points_count, t_vec3 *p)
 }
 
 int		read_points(
-	char *filename,
+	int fd,
 	t_vec3 *points,
 	int *points_count,
 	int *height)
@@ -40,10 +38,8 @@ int		read_points(
 	char	*line;
 	char	**nums;
 	int		ret;
-	int		fd;
 	t_vec3	p;
 
-	fd = open(filename, O_RDONLY);
 	line = NULL;
 	ret = 1;
 	*points_count = 0;
@@ -58,7 +54,7 @@ int		read_points(
 			read_line(points, nums, points_count, &p);
 			(*height)++;
 		}
-		free(line);
+		ft_strdel(&line);
 		p.z--;
 	}
 	return (0);
