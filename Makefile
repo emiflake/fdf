@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/04/18 20:11:18 by nmartins       #+#    #+#                 #
-#    Updated: 2019/06/03 17:30:59 by nmartins      ########   odam.nl          #
+#    Updated: 2019/06/09 15:14:02 by nmartins      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ OBJECT_NAMES=	\
 				my_misc_events \
 				state \
 				camera \
+				debug \
 
 
 # dependencies

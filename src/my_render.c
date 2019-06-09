@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/03 19:03:36 by nmartins       #+#    #+#                */
-/*   Updated: 2019/06/04 14:18:02 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/06/09 15:09:57 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 #include "const.h"
 #include "state.h"
 #include "camera.h"
+#include "render.h"
 
-int			handle_keys(t_gfx_state *st)
+int				handle_keys(t_gfx_state *st)
 {
 	const double	rot_speed = 0.02;
 	const double	mov_speed = st->key_state[KC_SHIFT] ? 0.5 : 0.1;
@@ -33,10 +34,12 @@ int			handle_keys(t_gfx_state *st)
 		st->key_state[KC_RIGHT] * -rot_speed
 			+ st->key_state[KC_LEFT] * rot_speed,
 		st->key_state[KC_O] * -rot_speed + st->key_state[KC_U] * rot_speed);
+	mst->fov += 0.1 * st->key_state[KC_PLUS];
+	mst->fov -= 0.1 * st->key_state[KC_MINUS];
 	return (0);
 }
 
-t_point		project(const t_vec3 *p, const t_state *mst)
+static t_point	project(const t_vec3 *p, const t_state *mst)
 {
 	if (mst->projection == PROJ_PERSPECTIVE)
 		return (mk_point(
@@ -45,77 +48,59 @@ t_point		project(const t_vec3 *p, const t_state *mst)
 			WIN_HEIGHT / 2 - (p->y + mst->camera.position.y) /
 			(p->z + mst->camera.position.z) * mst->fov));
 	else if (mst->projection == PROJ_ISOMETRIC)
-		return (mk_point(
-			WIN_WIDTH / 2 +
-				(p->x - p->y * cos(0.523599)) * mst->fov,
-			WIN_HEIGHT / 2 +
-				(-p->z + (p->x + p->y) * sin(0.523599)) * mst->fov));
+		return (mk_point(mst->camera.position.x * 100 +
+			WIN_WIDTH / 2 - (mst->point_count / mst->height * mst->fov) / 2 +
+				(p->x + p->y * cos(0.523599)) * mst->fov,
+				-mst->camera.position.z * 100 +
+			WIN_HEIGHT / 2 - mst->height * mst->fov / 2 +
+				(-p->z + (p->x - p->y) * sin(0.523599)) * mst->fov));
 	else
 		return (mk_point(0, 0));
 }
 
-void		render_lines(t_gfx_state *st, t_vec3 a, t_vec3 b)
+static int		is_in_bounds(t_point *a, t_point *b)
 {
-	t_state *mst;
-	t_vec3 alterated_a;
-	t_vec3 alterated_b;
-	t_point proj_a;
-	t_point proj_b;
+	return (!((a->x < 0 || a->x > WIN_WIDTH
+			|| a->y < 0 || a->y > WIN_HEIGHT)
+			&& (b->x < 0 || b->x > WIN_WIDTH
+			|| b->y < 0 || b->y > WIN_HEIGHT)));
+}
 
-	mst = st->user_state;
+void			render_lines(t_gfx_state *st, t_vec3 a, t_vec3 b)
+{
+	const t_state	*mst = st->user_state;
+	t_vec3			alterated_a;
+	t_vec3			alterated_b;
+	t_point			proj_a;
+	t_point			proj_b;
+
 	alterated_a = a;
 	alterated_b = b;
-	alterated_a = sub_vec3(gfx_rotation(add_vec3(a, mst->camera.position),
-		mst->camera.rotation), mst->camera.position);
-	alterated_b = sub_vec3(gfx_rotation(add_vec3(b, mst->camera.position),
-		mst->camera.rotation), mst->camera.position);
+	if (mst->projection == PROJ_PERSPECTIVE)
+	{
+		alterated_a = sub_vec3(gfx_rotation(add_vec3(a, mst->camera.position),
+			mst->camera.rotation), mst->camera.position);
+		alterated_b = sub_vec3(gfx_rotation(add_vec3(b, mst->camera.position),
+			mst->camera.rotation), mst->camera.position);
+	}
 	proj_a = project(&alterated_a, mst);
 	proj_b = project(&alterated_b, mst);
-	if ((alterated_a.z + mst->camera.position.z) * mst->fov <= 0
+	if (mst->projection == PROJ_PERSPECTIVE &&
+		((alterated_a.z + mst->camera.position.z) * mst->fov <= 0
 		|| (alterated_b.z + mst->camera.position.z) * mst->fov <= 0
-		|| ((proj_a.x < 0 || proj_a.x >= WIN_WIDTH
-		|| proj_a.y < 0 || proj_a.y >= WIN_HEIGHT)
-		&& (proj_b.x < 0 || proj_b.x >= WIN_WIDTH
-		|| proj_b.y < 0 || proj_b.y >= WIN_HEIGHT)))
+		|| !is_in_bounds(&proj_a, &proj_b)))
 		return ;
-	gfx_line(st, st->buffer, mk_line(proj_a, proj_b), 0xAAAAAA);
-		// gfx_color_from_rgb(gfx_hsl2rgb(mk_hsl(0, 1, 0.5))));
+	gfx_line(st, st->buffer, mk_line(proj_a, proj_b),
+		gfx_color_from_rgb(gfx_hsl2rgb(mk_hsl(
+			gfx_math_lerp(0, 200, 1 - (a.y / mst->max_height)), 1, 0.5))));
 }
 
-void		debug_info(t_gfx_state *st)
+void			render(t_gfx_state *st)
 {
-	t_state		*mst;
-	char		*fps;
-	int			color;
+	t_state	const	*mst = st->user_state;
+	t_point			p;
+	int				width;
 
-	color = gfx_color_from_rgb(gfx_hsl2rgb(
-			mk_hsl((gfx_get_current_epoch() / 10) % 360, 1, 0.5)));
-	mst = st->user_state;
-	fps = ft_itoa(gfx_get_fps(1));
-	ft_strreplace(&fps, ft_strjoin(fps, " frames per second"));
-	mlx_string_put(st->mlx_ptr,
-		st->win_ptr, WIN_WIDTH - 300, 50,
-		color, fps);
-	mlx_string_put(st->mlx_ptr, st->win_ptr,
-		50, 50, color, "WASD:        Move");
-	mlx_string_put(st->mlx_ptr, st->win_ptr,
-		50, 70, color, "Arrow Keys:  Look around");
-	mlx_string_put(st->mlx_ptr, st->win_ptr,
-		50, 90, color, "Space:       Change Perspective");
-	mlx_string_put(st->mlx_ptr, st->win_ptr,
-		50, 110, color, "Mouse Wheel: Zoom in/out");
-	mlx_string_put(st->mlx_ptr, st->win_ptr,
-		50, 130, color, "Shift:       \"Sprint\"");
-	free(fps);
-}
-
-void		render(t_gfx_state *st)
-{
-	t_state	*mst;
-	t_point	p;
-	int		width;
-
-	mst = st->user_state;
 	handle_keys(st);
 	gfx_fill_trgt(st, st->buffer, 0x00);
 	p.y = 0;
