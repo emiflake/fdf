@@ -5,4 +5,9 @@
 OpenGL, AppKit
 
 ## Building
-`make && ./fdf`
+`make && ./fdf <filename.fdf>`
+You should see a window now, try looking around with arrow keys. It might not be intuitive at first, but you will quickly learn (maybe).
+
+## Picture(s)
+A picture of 't1.fdf', a sort of hill.
+![image](https://lambda.sx/SJC.png)
