@@ -1,4 +1,4 @@
-# fdf
+# fdf ![norm](https://img.shields.io/badge/norminette-passing-brightgreen.svg)
 42 C: A Wireframe renderer
 
 ## Requirements
